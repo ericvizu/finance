@@ -1,0 +1,93 @@
+﻿# =========================
+# .NET / ASP.NET
+# =========================
+
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+
+# Rider / IntelliJ
+.idea/
+
+# Visual Studio
+.vs/
+
+# VS Code
+.vscode/
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+
+# ASP.NET secrets
+secrets.json
+
+# Test results
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Publish output
+publish/
+
+# Database files
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Docker overrides locais
+docker-compose.override.yml
+
+# Node / React frontend
+node_modules/
+dist/
+build/
+
+# Vite
+.vite/
+
+# npm/yarn logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+tmp/
+temp/
+
+# JetBrains cache
+.idea_modules/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Generated files
+Generated/
+
+# Terraform (caso use infra futuramente)
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Kubernetes
+*.kubeconfig

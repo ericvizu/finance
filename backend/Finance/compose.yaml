@@ -1,0 +1,24 @@
+﻿services:
+  db:
+    image: postgres:18
+    restart: always
+    shm_size: 128mb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: finance_user
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: finance_db
+    volumes:
+      - pgdata:/var/lib/postgresql 
+
+  # Opcional
+  # Pode ser substituído por DBeaver e afins
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:

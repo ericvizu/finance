@@ -1,0 +1,128 @@
+erDiagram
+    USER ||--o{ ACCOUNT : "possui"
+    USER ||--o{ CATEGORY : "gerencia"
+    USER ||--o{ SALARY : "contrato"
+    USER ||--o{ EXPENSE : "realiza"
+    USER ||--o{ INCOME : "recebe"
+    USER ||--o{ RECURRING_EXPENSE : "configura"
+    USER ||--o{ TRANSFER : "movimenta"
+
+    ACCOUNT ||--o{ EXPENSE : "debita"
+    ACCOUNT ||--o{ INCOME : "credita"
+    ACCOUNT ||--o{ INVOICE : "gera_fatura (se cartao)"
+    ACCOUNT ||--o{ TRANSFER : "origem"
+    ACCOUNT ||--o{ TRANSFER : "destino"
+
+    INVOICE ||--o{ EXPENSE : "contem"
+
+    CATEGORY ||--o{ EXPENSE : "classifica_gasto"
+    CATEGORY ||--o{ INCOME : "classifica_ganho"
+    CATEGORY ||--o{ CATEGORY : "tem_subcategorias"
+
+    RECURRING_EXPENSE ||--o{ EXPENSE : "gera"
+
+    USER {
+        string id PK
+        string name
+        string email
+        string password_hash
+        datetime created_at
+        datetime updated_at
+    }
+
+    ACCOUNT {
+        string id PK
+        string user_id FK
+        string name "Nubank, Bradesco"
+        string type "enum: CHECKING, CREDIT_CARD, CASH"
+        int closing_day "Nulo se nao for cartao"
+        int due_day "Nulo se nao for cartao"
+        datetime created_at
+        datetime updated_at
+    }
+
+    INVOICE {
+        string id PK
+        string account_id FK "Cartao"
+        string reference_month "Ex: 2026-05 (UNIQUE com account_id)"
+        date start_date "Inicio do ciclo"
+        date end_date "Fechamento real"
+        number total_amount "Snapshot do valor"
+        string status "enum: OPEN, CLOSED, PARTIALLY_PAID, PAID"
+        datetime closed_at
+        datetime created_at
+        datetime updated_at
+    }
+
+    CATEGORY {
+        string id PK
+        string user_id FK
+        string parent_id FK "Nulo = Raiz"
+        string name
+        string type "enum: INCOME, EXPENSE"
+        datetime created_at
+        datetime updated_at
+    }
+
+    RECURRING_EXPENSE {
+        string id PK
+        string user_id FK
+        string category_id FK
+        string account_id FK
+        string description
+        number default_amount
+        int day_of_month
+        date start_date
+        date end_date "Nulo = Infinito"
+        datetime created_at
+        datetime updated_at
+    }
+
+    EXPENSE {
+        string id PK
+        string user_id FK
+        string account_id FK
+        string category_id FK
+        string invoice_id FK "Nulo se debito. Preenchido se cartao"
+        string recurring_expense_id FK "Nulo se avulso"
+        number amount
+        date date_spent
+        string description
+        datetime created_at
+        datetime updated_at
+    }
+
+    INCOME {
+        string id PK
+        string user_id FK
+        string account_id FK
+        string category_id FK
+        number amount
+        date received_at
+        string description
+        datetime created_at
+        datetime updated_at
+    }
+
+    SALARY {
+        string id PK
+        string user_id FK
+        number net_amount
+        date start_date
+        date end_date "Nulo = Contrato Atual"
+        datetime created_at
+        datetime updated_at
+    }
+
+    TRANSFER {
+        string id PK
+        string user_id FK
+        string from_account_id FK "Conta Origem"
+        string to_account_id FK "Conta Destino"
+        string invoice_id FK "Opcional - pagamento de fatura"
+        number amount
+        date transfer_date
+        string description "Ex: Pagamento Fatura Nubank"
+        datetime created_at
+        datetime updated_at
+    }
