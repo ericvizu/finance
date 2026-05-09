@@ -2,10 +2,10 @@
 
 public class User
 {
-    private string id; // PK
-    private string name; // Nome
-    private string email; // Email
-    private string password_hash; // Hash da senha
-    private DateTime created_at; // Quando foi criado
-    private DateTime updated_at; // Ultima vez atualizado
+    public Guid id { get ; set; } // PK - garantir sequencial - talvez usar NEWSEQUENTIALID() no sql
+    public string Name {get; set; } // Nome
+    public string Email {get; set; } // Email
+    public string PasswordHash {get; set; } // Hash da senha
+    public DateTime CreatedAt {get; set; } // Quando foi criado
+    public DateTime? UpdatedAt {get; set; } // Ultima vez atualizado - pode nunca ter sido atualizado
 }
