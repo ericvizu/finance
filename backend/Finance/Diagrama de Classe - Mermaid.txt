@@ -1,128 +1,130 @@
 erDiagram
-    USER ||--o{ ACCOUNT : "possui"
-    USER ||--o{ CATEGORY : "gerencia"
-    USER ||--o{ SALARY : "contrato"
-    USER ||--o{ EXPENSE : "realiza"
-    USER ||--o{ INCOME : "recebe"
-    USER ||--o{ RECURRING_EXPENSE : "configura"
-    USER ||--o{ TRANSFER : "movimenta"
+	direction TB
+	User {
+		Guid Id PK "Sequencial"  
+		String Name  ""  
+		String Email  ""  
+		String PasswordHash  ""  
+		DateTime CreatedAt  ""  
+		DateTime UpdatedAt  ""  
+	}
 
-    ACCOUNT ||--o{ EXPENSE : "debita"
-    ACCOUNT ||--o{ INCOME : "credita"
-    ACCOUNT ||--o{ INVOICE : "gera_fatura (se cartao)"
-    ACCOUNT ||--o{ TRANSFER : "origem"
-    ACCOUNT ||--o{ TRANSFER : "destino"
+	Account {
+		Guid Id PK "Sequencial"  
+		Guid UserId FK ""  
+		String Name  ""  
+		EnumAccountType Type  ""  
+		Int ClosingDay  ""  
+		Int DueDay  ""  
+		DateTime CreatedAt  ""  
+		DateTime UpdatedAt  ""  
+	}
 
-    INVOICE ||--o{ EXPENSE : "contem"
+	Category {
+		Guid Id PK "Sequencial"  
+		Guid UserId FK ""  
+		Guid ParentId FK "Nullable"  
+		String Name  ""  
+		EnumTransactionType Type  ""  
+		DateTime CreatedAt  ""  
+		DateTime UpdatedAt  ""  
+	}
 
-    CATEGORY ||--o{ EXPENSE : "classifica_gasto"
-    CATEGORY ||--o{ INCOME : "classifica_ganho"
-    CATEGORY ||--o{ CATEGORY : "tem_subcategorias"
+	Salary {
+		Guid Id PK "Sequencial"  
+		Guid UserId FK ""  
+		Decimal NetAmount  ""  
+		DateOnly StartDate  ""  
+		DateOnly EndDate  ""  
+		DateTime CreatedAt  ""  
+		DateTime UpdatedAt  ""  
+	}
 
-    RECURRING_EXPENSE ||--o{ EXPENSE : "gera"
+	Expense {
+		Guid Id PK "Sequencial"  
+		Guid UserId FK ""  
+		Guid AccountId FK ""  
+		Guid CategoryId FK ""  
+		Guid InvoiceId FK "Nullable"  
+		Guid RecurringExpenseId FK "Nullable"  
+		Decimal Amount  ""  
+		DateOnly DateSpent  ""  
+		String Description  ""  
+		DateTime CreatedAt  ""  
+		DateTime UpdatedAt  ""  
+	}
 
-    USER {
-        string id PK
-        string name
-        string email
-        string password_hash
-        datetime created_at
-        datetime updated_at
-    }
+	Income {
+		Guid Id PK "Sequencial"  
+		Guid UserId FK ""  
+		Guid AccountId FK ""  
+		Guid CategoryId FK ""  
+		Decimal Amount  ""  
+		DateOnly ReceivedAt  ""  
+		String Description  ""  
+		DateTime CreatedAt  ""  
+		DateTime UpdatedAt  ""  
+	}
 
-    ACCOUNT {
-        string id PK
-        string user_id FK
-        string name "Nubank, Bradesco"
-        string type "enum: CHECKING, CREDIT_CARD, CASH"
-        int closing_day "Nulo se nao for cartao"
-        int due_day "Nulo se nao for cartao"
-        datetime created_at
-        datetime updated_at
-    }
+	RecurringExpense {
+		Guid Id PK "Sequencial"  
+		Guid UserId FK ""  
+		Guid CategoryId FK ""  
+		Guid AccountId FK ""  
+		String Description  ""  
+		Decimal DefaultAmount  ""  
+		Int DayOfMonth  ""  
+		DateOnly StartDate  ""  
+		DateOnly EndDate  ""  
+		DateTime CreatedAt  ""  
+		DateTime UpdatedAt  ""  
+	}
 
-    INVOICE {
-        string id PK
-        string account_id FK "Cartao"
-        string reference_month "Ex: 2026-05 (UNIQUE com account_id)"
-        date start_date "Inicio do ciclo"
-        date end_date "Fechamento real"
-        number total_amount "Snapshot do valor"
-        string status "enum: OPEN, CLOSED, PARTIALLY_PAID, PAID"
-        datetime closed_at
-        datetime created_at
-        datetime updated_at
-    }
+	Transfer {
+		Guid Id PK "Sequencial"  
+		Guid UserId FK ""  
+		Guid FromAccountId FK ""  
+		Guid ToAccountId FK ""  
+		Guid InvoiceId FK "Nullable"  
+		Decimal Amount  ""  
+		DateOnly TransferDate  ""  
+		String Description  ""  
+		DateTime CreatedAt  ""  
+		DateTime UpdatedAt  ""  
+	}
 
-    CATEGORY {
-        string id PK
-        string user_id FK
-        string parent_id FK "Nulo = Raiz"
-        string name
-        string type "enum: INCOME, EXPENSE"
-        datetime created_at
-        datetime updated_at
-    }
+	Invoice {
+		Guid Id PK "Sequencial"  
+		Guid AccountId FK ""  
+		String ReferenceMonth  "UniqueIdx"  
+		DateOnly StartDate  ""  
+		DateOnly EndDate  ""  
+		Decimal TotalAmount  ""  
+		EnumInvoiceStatus Status  ""  
+		DateTime ClosedAt  ""  
+		DateTime CreatedAt  ""  
+		DateTime UpdatedAt  ""  
+	}
 
-    RECURRING_EXPENSE {
-        string id PK
-        string user_id FK
-        string category_id FK
-        string account_id FK
-        string description
-        number default_amount
-        int day_of_month
-        date start_date
-        date end_date "Nulo = Infinito"
-        datetime created_at
-        datetime updated_at
-    }
+	Untitled-Entity {
 
-    EXPENSE {
-        string id PK
-        string user_id FK
-        string account_id FK
-        string category_id FK
-        string invoice_id FK "Nulo se debito. Preenchido se cartao"
-        string recurring_expense_id FK "Nulo se avulso"
-        number amount
-        date date_spent
-        string description
-        datetime created_at
-        datetime updated_at
-    }
+	}
 
-    INCOME {
-        string id PK
-        string user_id FK
-        string account_id FK
-        string category_id FK
-        number amount
-        date received_at
-        string description
-        datetime created_at
-        datetime updated_at
-    }
-
-    SALARY {
-        string id PK
-        string user_id FK
-        number net_amount
-        date start_date
-        date end_date "Nulo = Contrato Atual"
-        datetime created_at
-        datetime updated_at
-    }
-
-    TRANSFER {
-        string id PK
-        string user_id FK
-        string from_account_id FK "Conta Origem"
-        string to_account_id FK "Conta Destino"
-        string invoice_id FK "Opcional - pagamento de fatura"
-        number amount
-        date transfer_date
-        string description "Ex: Pagamento Fatura Nubank"
-        datetime created_at
-        datetime updated_at
-    }
+	User||--o{Account:"Possui"
+	User||--o{Category:"Gerencia"
+	User||--o{Salary:"Contrato"
+	User||--o{Expense:"Realiza"
+	User||--o{Income:"Recebe"
+	User||--o{RecurringExpense:"Configura"
+	User||--o{Transfer:"Movimenta"
+	Account||--o{Expense:"Debita"
+	Account||--o{Income:"Credita"
+	Account||--o{Invoice:"GeraFatura"
+	Account||--o{Transfer:"Origem"
+	Account||--o{Transfer:"Destino"
+	Invoice||--o{Expense:"Contem"
+	Category||--o{Expense:"ClassificaGasto"
+	Category||--o{Income:"ClassificaGanho"
+	Category||--o{Category:"Subcategorias"
+	RecurringExpense||--o{Expense:"Gera"
+	User}|--|{Untitled-Entity:"  "
