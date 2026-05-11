@@ -2,7 +2,7 @@
 
 public class User
 {
-    public Guid id { get ; set; } // PK - garantir sequencial - talvez usar NEWSEQUENTIALID() no sql
+    public Guid Id { get ; set; } // PK - garantir sequencial - talvez usar NEWSEQUENTIALID() no sql
     public string Name {get; set; } // Nome
     public string Email {get; set; } // Email
     public string PasswordHash {get; set; } // Hash da senha
