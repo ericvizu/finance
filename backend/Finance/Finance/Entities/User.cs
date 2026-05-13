@@ -2,10 +2,10 @@
 
 public class User
 {
-    public Guid Id { get ; set; } // PK - garantir sequencial - talvez usar NEWSEQUENTIALID() no sql
-    public string Name {get; set; } // Nome
-    public string Email {get; set; } // Email
-    public string PasswordHash {get; set; } // Hash da senha
-    public DateTime CreatedAt {get; set; } // Quando foi criado
-    public DateTime? UpdatedAt {get; set; } // Ultima vez atualizado - pode nunca ter sido atualizado
+    public Guid Id { get; set; } // Primary Key - Uses uuidv7() for sequentiality
+    public string Name { get; set; } = string.Empty; // User's full name
+    public string Email { get; set; } = string.Empty; // Unique contact email
+    public string PasswordHash { get; set; } = string.Empty; // Encrypted password storage
+    public DateTime CreatedAt { get; set; } // Record creation timestamp
+    public DateTime? UpdatedAt { get; set; } // Last modification timestamp (nullable)
 }
