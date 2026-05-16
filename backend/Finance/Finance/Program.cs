@@ -1,4 +1,6 @@
 using Finance.Data;
+using Finance.Interfaces;
+using Finance.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Finance;
@@ -21,6 +23,7 @@ public class Program
         // Registers the AppDbContext with the Npgsql provider for PostgreSQL
         builder.Services.AddDbContext<AppDbContext>(options => 
             options.UseNpgsql(connectionString));
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
                 
         // Builds the application
         var app = builder.Build();
