@@ -1,6 +1,7 @@
 using Finance.Data;
 using Finance.Interfaces;
 using Finance.Repositories;
+using Finance.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Finance;
@@ -24,6 +25,7 @@ public class Program
         builder.Services.AddDbContext<AppDbContext>(options => 
             options.UseNpgsql(connectionString));
         builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IUserService, UserService>();
                 
         // Builds the application
         var app = builder.Build();
