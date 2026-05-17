@@ -57,4 +57,22 @@ public class UserService : IUserService
                 user.CreatedAt);
         return null;
     }
+
+    public async Task<UserResponse?> UpdateByIdAsync(Guid id, UserUpdateRequest request)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+        if (user == null)
+        {
+            return null;
+        }
+        user.Name = request.Name;
+        user.UpdatedAt = DateTime.UtcNow;
+        
+        await _userRepository.SaveChangesAsync();
+        return new UserResponse(
+            user.Id,
+            user.Name,
+            user.Email,
+            user.CreatedAt);
+    }
 }

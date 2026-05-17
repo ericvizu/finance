@@ -36,4 +36,15 @@ public class UserController : ControllerBase
         }
         return Ok(result);
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<UserResponse>> Update(Guid id, [FromBody] UserUpdateRequest request)
+    {
+        var result = await _userService.UpdateByIdAsync(id,  request);
+        if (result == null)
+        {
+            return NotFound();
+        }
+        return Ok(result);
+    }
 }
