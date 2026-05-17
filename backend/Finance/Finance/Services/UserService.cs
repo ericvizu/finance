@@ -45,4 +45,16 @@ public class UserService : IUserService
             user.Email,
             user.CreatedAt);
     }
+
+    public async Task<UserResponse?> GetByIdAsync(Guid id)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+        if (user != null)
+            return new UserResponse(
+                user.Id,
+                user.Name,
+                user.Email,
+                user.CreatedAt);
+        return null;
+    }
 }

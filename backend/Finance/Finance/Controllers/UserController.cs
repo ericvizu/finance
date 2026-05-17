@@ -23,6 +23,17 @@ public class UserController : ControllerBase
             return BadRequest("Email already exists");
         }
         // TODO: Adicionar internacionalização via Localization
-        return CreatedAtAction(nameof(Register), new { id = result.Id }, result);
+        return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<UserResponse>> GetById(Guid id)
+    {
+        var result = await _userService.GetByIdAsync(id);
+        if (result == null)
+        {
+            return NotFound();
+        }
+        return Ok(result);
     }
 }
