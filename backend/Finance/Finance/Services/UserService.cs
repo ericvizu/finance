@@ -75,4 +75,16 @@ public class UserService : IUserService
             user.Email,
             user.CreatedAt);
     }
+
+    public async Task<bool> DeleteByIdAsync(Guid id)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+        if (user == null)
+        {
+            return false;
+        }
+        _userRepository.Remove(user);
+        await _userRepository.SaveChangesAsync();
+        return true;
+    }
 }

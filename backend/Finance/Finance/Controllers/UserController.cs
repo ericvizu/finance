@@ -47,4 +47,15 @@ public class UserController : ControllerBase
         }
         return Ok(result);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<bool>> Delete(Guid id)
+    {
+        var success = await _userService.DeleteByIdAsync(id);
+        if (!success) 
+        {
+            return NotFound(); // Retorna 404
+        }
+        return NoContent(); // Retorna 204 (sem corpo, mais elegante)
+    }
 }
