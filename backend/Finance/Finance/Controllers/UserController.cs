@@ -54,8 +54,8 @@ public class UserController : ControllerBase
         var success = await _userService.DeleteByIdAsync(id);
         if (!success) 
         {
-            return NotFound(); // Retorna 404
+            return NotFound();
         }
-        return NoContent(); // Retorna 204 (sem corpo, mais elegante)
+        return NoContent();
     }
 }
