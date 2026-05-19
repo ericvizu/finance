@@ -7,10 +7,12 @@ namespace Finance.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly ITokenService _tokenService;
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUserRepository userRepository, ITokenService tokenService)
     {
         _userRepository = userRepository;
+        _tokenService = tokenService;
     }
 
     public async Task<UserResponse?> RegisterAsync(UserRegistrationRequest request)
@@ -86,5 +88,16 @@ public class UserService : IUserService
         _userRepository.Remove(user);
         await _userRepository.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<string?> LoginAsync(string email, string password)
+    {
+        var result = await _userRepository.GetByEmailAsync(email);
+        if (result == null || !BCrypt.Net.BCrypt.Verify(password, result.PasswordHash))
+        {
+            return null;
+        }
+
+        return _tokenService.GenerateToken(result);
     }
 }

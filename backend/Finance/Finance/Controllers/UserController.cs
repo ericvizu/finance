@@ -58,4 +58,16 @@ public class UserController : ControllerBase
         }
         return NoContent();
     }
+
+    [HttpPost("login")]
+    public async Task<ActionResult> Login([FromBody] LoginRequest request)
+    {
+        var token = await _userService.LoginAsync(request.Email, request.Password);
+
+        if (token == null)
+        {
+            return Unauthorized("E-mail ou senha inválidos.");
+        }
+        return Ok(new { token });
+    }
 }

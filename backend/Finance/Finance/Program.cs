@@ -1,8 +1,11 @@
+using System.Text;
 using Finance.Data;
 using Finance.Interfaces;
 using Finance.Repositories;
 using Finance.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Finance;
 
@@ -13,11 +16,37 @@ public class Program
         // Initializes the web application builder, loading appsettings.json and environment variables
         var builder = WebApplication.CreateBuilder(args);
         
-        // --- SERVICE REGISTRATION (Dependency Injection) ---
-        builder.Services.AddControllers();
+        // --- 1. AUTHENTICATION ---
+        var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+        var key = Encoding.ASCII.GetBytes(jwtSettings["Secret"]!);
+        
+        builder.Services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false; // Mude para true em produção
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = true,
+                    ValidIssuer = jwtSettings["Issuer"],
+                    ValidateAudience = true,
+                    ValidAudience = jwtSettings["Audience"],
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero // Remove o atraso padrão de 5min do token
+                };
+            });
 
+        builder.Services.AddAuthorization();
+        
         // 1. Swagger/OpenAPI Setup
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+        builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(); // Required for Swagger UI generation
 
@@ -30,6 +59,7 @@ public class Program
             
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<ITokenService, TokenService>();
                 
         // Builds the application
         var app = builder.Build();
@@ -41,6 +71,10 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI(); // This enables the /swagger page
         }
+        
+        // Authentication
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         // Maps controller routes so the API knows which code to execute for specific URLs
         app.MapControllers();

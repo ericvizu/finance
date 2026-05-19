@@ -1,0 +1,153 @@
+meta {
+  name: put /api/User/login
+  type: http
+  seq: 5
+  tags: [
+    User
+  ]
+}
+
+put {
+  url: {{baseUrl}}/api/User/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 
+}
+
+body:json {
+  {
+    "name": ""
+  }
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/api/User/:id
+    method: PUT
+    mode: json
+    params:path: {
+      id: 
+    }
+  
+    body:json: {
+      {
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: text/plain
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "id": "",
+          "name": "",
+          "email": "",
+          "createdAt": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/api/User/:id
+    method: PUT
+    mode: json
+    params:path: {
+      id: 
+    }
+  
+    body:json: {
+      {
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": "",
+          "name": "",
+          "email": "",
+          "createdAt": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/api/User/:id
+    method: PUT
+    mode: json
+    params:path: {
+      id: 
+    }
+  
+    body:json: {
+      {
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: text/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": "",
+          "name": "",
+          "email": "",
+          "createdAt": ""
+        }
+      '''
+    }
+  }
+}

@@ -8,4 +8,5 @@ public interface IUserService
     Task<UserResponse?> GetByIdAsync(Guid id);
     Task<UserResponse?> UpdateByIdAsync(Guid id, UserUpdateRequest request);
     Task<bool> DeleteByIdAsync(Guid id);
+    Task<string?> LoginAsync(string email, string password);
 }
