@@ -42,6 +42,12 @@ public class AppDbContext : DbContext
             // CreatedAt configurations, auto set to now
             entity.Property(u => u.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            
+            // User role configuration
+            entity.Property(u => u.Role)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasDefaultValue("User");
         });
     }
 }

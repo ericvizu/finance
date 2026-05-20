@@ -1,5 +1,6 @@
 ﻿using Finance.DTOs;
 using Finance.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Finance.Controllers;
@@ -48,6 +49,7 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<ActionResult<bool>> Delete(Guid id)
     {

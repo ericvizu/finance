@@ -8,4 +8,5 @@ public class User
     public string PasswordHash { get; set; } = string.Empty; // Encrypted password storage
     public DateTime CreatedAt { get; set; } // Record creation timestamp
     public DateTime? UpdatedAt { get; set; } // Last modification timestamp (nullable)
+    public string Role { get; set; } = "User"; // Role for authentication
 }

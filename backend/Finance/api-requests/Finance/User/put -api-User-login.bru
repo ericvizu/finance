@@ -7,19 +7,16 @@ meta {
   ]
 }
 
-put {
-  url: {{baseUrl}}/api/User/:id
+post {
+  url: {{baseUrl}}/api/User/login
   body: json
   auth: inherit
 }
 
-params:path {
-  id: 
-}
-
 body:json {
   {
-    "name": ""
+    "email": "admin@gmail.com",
+    "password": "admin"
   }
 }
 

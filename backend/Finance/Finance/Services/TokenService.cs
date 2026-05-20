@@ -20,16 +20,17 @@ public class TokenService : ITokenService
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         
-        // Pegamos a chave secreta que você gerou
+        // Secret key
         var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:Secret"]!);
 
-        // Descrevemos o que vai dentro do Token (Payload)
+        // Payload
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()), // Insert id on token
+                new Claim(ClaimTypes.Email, user.Email), // Insert email on token
+                new Claim(ClaimTypes.Role, user.Role) // Insert role on token
             }),
             Expires = DateTime.UtcNow.AddMinutes(double.Parse(_configuration["JwtSettings:ExpirationInMinutes"]!)),
             SigningCredentials = new SigningCredentials(
@@ -39,7 +40,7 @@ public class TokenService : ITokenService
             Audience = _configuration["JwtSettings:Audience"]
         };
 
-        // Criamos e escrevemos o token final
+        // Create and return the final token
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
