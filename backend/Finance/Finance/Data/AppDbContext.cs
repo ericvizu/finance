@@ -1,4 +1,5 @@
 ﻿using Finance.Entities;
+using Finance.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Finance.Data;
@@ -48,6 +49,13 @@ public class AppDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(50)
                 .HasDefaultValue("User");
+            
+            // No OnModelCreating do AppDbContext.cs
+            entity.Property(u => u.Role)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasConversion<string>() // <--- Mágica aqui: Converte o Enum para String no banco
+                .HasDefaultValue(UserRole.User);
         });
     }
 }

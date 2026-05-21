@@ -1,4 +1,6 @@
-﻿namespace Finance.Entities;
+﻿using Finance.Enums;
+
+namespace Finance.Entities;
 
 public class User
 {
@@ -8,5 +10,5 @@ public class User
     public string PasswordHash { get; set; } = string.Empty; // Encrypted password storage
     public DateTime CreatedAt { get; set; } // Record creation timestamp
     public DateTime? UpdatedAt { get; set; } // Last modification timestamp (nullable)
-    public string Role { get; set; } = "User"; // Role for authentication
+    public UserRole Role { get; set; } = UserRole.User; // Role for authentication
 }

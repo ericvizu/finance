@@ -30,7 +30,7 @@ public class TokenService : ITokenService
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()), // Insert id on token
                 new Claim(ClaimTypes.Email, user.Email), // Insert email on token
-                new Claim(ClaimTypes.Role, user.Role) // Insert role on token
+                new Claim(ClaimTypes.Role, user.Role.ToString()) // Insert role on token
             }),
             Expires = DateTime.UtcNow.AddMinutes(double.Parse(_configuration["JwtSettings:ExpirationInMinutes"]!)),
             SigningCredentials = new SigningCredentials(
