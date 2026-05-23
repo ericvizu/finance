@@ -1,4 +1,4 @@
-﻿namespace Finance.DTOs;
+﻿namespace Finance.DTOs.User;
 
 // Public profile data returned by the API
 // Omits sensitive data, like password

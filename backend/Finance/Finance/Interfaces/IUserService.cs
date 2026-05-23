@@ -1,4 +1,5 @@
 ﻿using Finance.DTOs;
+using Finance.DTOs.User;
 
 namespace Finance.Interfaces;
 

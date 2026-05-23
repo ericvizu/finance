@@ -1,4 +1,6 @@
 ﻿using Finance.DTOs;
+using Finance.DTOs.Auth;
+using Finance.DTOs.User;
 using Finance.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

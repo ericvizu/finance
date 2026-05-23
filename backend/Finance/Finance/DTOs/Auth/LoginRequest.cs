@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Finance.DTOs;
+namespace Finance.DTOs.Auth;
 
 public record LoginRequest(
     [Required(ErrorMessage = "E-mail is mandatory.")]

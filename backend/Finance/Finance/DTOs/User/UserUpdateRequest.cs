@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Finance.DTOs;
+namespace Finance.DTOs.User;
 
 // For updating user profiles
 public record UserUpdateRequest(

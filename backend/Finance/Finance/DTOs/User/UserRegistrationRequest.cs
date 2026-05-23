@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Finance.DTOs;
+namespace Finance.DTOs.User;
 
 // For creating a new user
 // Password in text, to be hashed in the Service layer

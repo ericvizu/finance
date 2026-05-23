@@ -1,4 +1,5 @@
 ﻿using Finance.DTOs;
+using Finance.DTOs.User;
 using Finance.Entities;
 using Finance.Interfaces;
 
