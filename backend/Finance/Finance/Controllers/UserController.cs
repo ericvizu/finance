@@ -18,9 +18,9 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<UserResponse>> Register([FromBody] UserRegistrationRequest request)
+    public async Task<ActionResult<UserResponse>> Register([FromBody] CreateUserRequest request)
     {
-        var result = await _userService.RegisterAsync(request);
+        var result = await _userService.CreateAsync(request);
         if (result == null)
         {
             return BadRequest("Email already exists");
@@ -41,7 +41,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<UserResponse>> Update(Guid id, [FromBody] UserUpdateRequest request)
+    public async Task<ActionResult<UserResponse>> Update(Guid id, [FromBody] UpdateUserRequest request)
     {
         var result = await _userService.UpdateByIdAsync(id,  request);
         if (result == null)

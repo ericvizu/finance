@@ -1,22 +1,25 @@
 meta {
-  name: put /api/User/login
+  name: post /api/Account
   type: http
-  seq: 5
+  seq: 2
   tags: [
-    User
+    Account
   ]
 }
 
 post {
-  url: {{baseUrl}}/api/User/login
+  url: {{baseUrl}}/api/Account
   body: json
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:json {
   {
-    "email": "admin@gmail.com",
-    "password": "admin"
+    "name": "Picpay"
   }
 }
 
@@ -25,13 +28,9 @@ example {
   description: OK
   
   request: {
-    url: {{baseUrl}}/api/User/:id
-    method: PUT
+    url: {{baseUrl}}/api/Account
+    method: POST
     mode: json
-    params:path: {
-      id: 
-    }
-  
     body:json: {
       {
         "name": ""
@@ -55,7 +54,6 @@ example {
         {
           "id": "",
           "name": "",
-          "email": "",
           "createdAt": ""
         }
       '''
@@ -68,13 +66,9 @@ example {
   description: OK
   
   request: {
-    url: {{baseUrl}}/api/User/:id
-    method: PUT
+    url: {{baseUrl}}/api/Account
+    method: POST
     mode: json
-    params:path: {
-      id: 
-    }
-  
     body:json: {
       {
         "name": ""
@@ -98,7 +92,6 @@ example {
         {
           "id": "",
           "name": "",
-          "email": "",
           "createdAt": ""
         }
       '''
@@ -111,13 +104,9 @@ example {
   description: OK
   
   request: {
-    url: {{baseUrl}}/api/User/:id
-    method: PUT
+    url: {{baseUrl}}/api/Account
+    method: POST
     mode: json
-    params:path: {
-      id: 
-    }
-  
     body:json: {
       {
         "name": ""
@@ -141,7 +130,6 @@ example {
         {
           "id": "",
           "name": "",
-          "email": "",
           "createdAt": ""
         }
       '''

@@ -1,4 +1,4 @@
-﻿using Finance.DTOs;
+using Finance.DTOs;
 using Finance.DTOs.User;
 using Finance.Entities;
 using Finance.Interfaces;
@@ -16,7 +16,7 @@ public class UserService : IUserService
         _tokenService = tokenService;
     }
 
-    public async Task<UserResponse?> RegisterAsync(UserRegistrationRequest request)
+    public async Task<UserResponse?> CreateAsync(CreateUserRequest request)
     {
         // Checks if user with that email already exists
         if (await _userRepository.ExistsByEmailAsync(request.Email))
@@ -33,7 +33,7 @@ public class UserService : IUserService
         };
 
         // Stages and commit changes to PostgreSQL
-        await _userRepository.AddAsync(user);
+        _userRepository.Add(user);
         var success = await _userRepository.SaveChangesAsync();
 
         if (!success)
@@ -61,7 +61,7 @@ public class UserService : IUserService
         return null;
     }
 
-    public async Task<UserResponse?> UpdateByIdAsync(Guid id, UserUpdateRequest request)
+    public async Task<UserResponse?> UpdateByIdAsync(Guid id, UpdateUserRequest request)
     {
         var user = await _userRepository.GetByIdAsync(id);
         if (user == null)

@@ -3,7 +3,7 @@
 namespace Finance.DTOs.User;
 
 // For updating user profiles
-public record UserUpdateRequest(
+public record UpdateUserRequest(
     [Required]
     [StringLength(100, MinimumLength = 3)]
     string Name

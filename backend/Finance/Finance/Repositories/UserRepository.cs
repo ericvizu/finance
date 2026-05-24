@@ -23,9 +23,9 @@ public class UserRepository : IUserRepository
         // And the email is not a PK, so it would result in an error
         return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
-    public async Task AddAsync(User user)
-    {
-        await _context.Users.AddAsync(user);
+    public void Add(User user)
+    { 
+        _context.Users.AddAsync(user);
     }
     public async Task<bool> ExistsByEmailAsync(string email)
     {

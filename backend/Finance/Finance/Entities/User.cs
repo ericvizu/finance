@@ -11,4 +11,5 @@ public class User
     public DateTime CreatedAt { get; set; } // Record creation timestamp
     public DateTime? UpdatedAt { get; set; } // Last modification timestamp (nullable)
     public UserRole Role { get; set; } = UserRole.User; // Role for authentication
+    public ICollection<Account> Accounts { get; set; } = new List<Account>();
 }

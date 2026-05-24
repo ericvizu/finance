@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     
     // Represents the physical 'Users' table in the database
     public DbSet<User> Users { get; set; }
+    public DbSet<Account> Accounts { get; set; }
 
     // Configuration for the database schema using Fluent API.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,18 +45,33 @@ public class AppDbContext : DbContext
             entity.Property(u => u.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
             
-            // User role configuration
-            entity.Property(u => u.Role)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasDefaultValue("User");
-            
             // No OnModelCreating do AppDbContext.cs
             entity.Property(u => u.Role)
                 .IsRequired()
                 .HasMaxLength(50)
-                .HasConversion<string>() // <--- Mágica aqui: Converte o Enum para String no banco
+                .HasConversion<string>() 
                 .HasDefaultValue(UserRole.User);
+        });
+        modelBuilder.Entity<Account>(entity =>
+        {
+            // PK using UUID v7
+            entity.HasKey(a => a.Id);
+            entity.Property(a => a.Id)
+                .HasDefaultValueSql("uuidv7()");
+
+            // Name configurations
+            entity.Property(a => a.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+            
+            // CreatedAt configurations, auto set to now
+            entity.Property(a => a.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            
+            entity.HasOne(a => a.User)
+                .WithMany(u => u.Accounts)
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 }

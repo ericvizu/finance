@@ -4,7 +4,7 @@ namespace Finance.DTOs.User;
 
 // For creating a new user
 // Password in text, to be hashed in the Service layer
-public record UserRegistrationRequest(
+public record CreateUserRequest(
     [Required(ErrorMessage = "Name obligatory")]
     [StringLength(100, MinimumLength = 3)]
     string Name,

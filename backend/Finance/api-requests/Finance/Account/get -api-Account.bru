@@ -1,20 +1,16 @@
 meta {
-  name: get /api/User/:id
+  name: get /api/Account
   type: http
-  seq: 2
+  seq: 3
   tags: [
     User
   ]
 }
 
 get {
-  url: {{baseUrl}}/api/User/:id
+  url: {{baseUrl}}/api/Account
   body: none
   auth: inherit
-}
-
-params:path {
-  id: {{idUser}}
 }
 
 example {

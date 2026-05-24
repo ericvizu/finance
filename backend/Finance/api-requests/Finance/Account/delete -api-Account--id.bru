@@ -1,20 +1,26 @@
 meta {
-  name: get /api/User/:id
+  name: delete /api/Account/:id
   type: http
-  seq: 2
+  seq: 5
   tags: [
     User
   ]
 }
 
-get {
-  url: {{baseUrl}}/api/User/:id
-  body: none
+delete {
+  url: {{baseUrl}}/api/Account/:id
+  body: json
   auth: inherit
 }
 
 params:path {
-  id: {{idUser}}
+  id: 019e577a-bdde-7b98-9d12-1218c5016fef
+}
+
+body:json {
+  {
+    "name": "Itaú"
+  }
 }
 
 example {
