@@ -1,16 +1,26 @@
 meta {
-  name: get /api/Account
+  name: Get Salary by ID
   type: http
-  seq: 3
+  seq: 4
   tags: [
-    User
+    Account
   ]
 }
 
 get {
-  url: {{baseUrl}}/api/Account
-  body: none
-  auth: inherit
+  url: {{baseUrl}}/api/Salary/active
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    
+  }
 }
 
 example {
@@ -18,11 +28,13 @@ example {
   description: OK
   
   request: {
-    url: {{baseUrl}}/api/User/:id
-    method: GET
-    mode: none
-    params:path: {
-      id: 
+    url: {{baseUrl}}/api/Account
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": ""
+      }
     }
   }
   
@@ -42,7 +54,6 @@ example {
         {
           "id": "",
           "name": "",
-          "email": "",
           "createdAt": ""
         }
       '''
@@ -55,11 +66,13 @@ example {
   description: OK
   
   request: {
-    url: {{baseUrl}}/api/User/:id
-    method: GET
-    mode: none
-    params:path: {
-      id: 
+    url: {{baseUrl}}/api/Account
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": ""
+      }
     }
   }
   
@@ -79,7 +92,6 @@ example {
         {
           "id": "",
           "name": "",
-          "email": "",
           "createdAt": ""
         }
       '''
@@ -92,11 +104,13 @@ example {
   description: OK
   
   request: {
-    url: {{baseUrl}}/api/User/:id
-    method: GET
-    mode: none
-    params:path: {
-      id: 
+    url: {{baseUrl}}/api/Account
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": ""
+      }
     }
   }
   
@@ -116,7 +130,6 @@ example {
         {
           "id": "",
           "name": "",
-          "email": "",
           "createdAt": ""
         }
       '''

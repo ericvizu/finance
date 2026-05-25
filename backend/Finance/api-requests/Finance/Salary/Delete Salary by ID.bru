@@ -1,20 +1,34 @@
 meta {
-  name: get /api/Account/:id
+  name: Delete Salary by ID
   type: http
-  seq: 3
+  seq: 6
   tags: [
-    User
+    Account
   ]
 }
 
-get {
-  url: {{baseUrl}}/api/Account/:id
-  body: none
-  auth: inherit
+delete {
+  url: {{baseUrl}}/api/Salary/:id
+  body: json
+  auth: bearer
 }
 
 params:path {
-  id: {{idAccount}}
+  id: 019e5c95-a767-7ff8-81cc-bb72107b3b07
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "Primeiro Emprego",
+    "grossAmount": 2000.00,
+    "netAmount": 1500.00,
+    "startDate": "2026-01-01",
+    "endDate": null
+  }
 }
 
 example {
@@ -22,11 +36,13 @@ example {
   description: OK
   
   request: {
-    url: {{baseUrl}}/api/User/:id
-    method: GET
-    mode: none
-    params:path: {
-      id: 
+    url: {{baseUrl}}/api/Account
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": ""
+      }
     }
   }
   
@@ -46,7 +62,6 @@ example {
         {
           "id": "",
           "name": "",
-          "email": "",
           "createdAt": ""
         }
       '''
@@ -59,11 +74,13 @@ example {
   description: OK
   
   request: {
-    url: {{baseUrl}}/api/User/:id
-    method: GET
-    mode: none
-    params:path: {
-      id: 
+    url: {{baseUrl}}/api/Account
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": ""
+      }
     }
   }
   
@@ -83,7 +100,6 @@ example {
         {
           "id": "",
           "name": "",
-          "email": "",
           "createdAt": ""
         }
       '''
@@ -96,11 +112,13 @@ example {
   description: OK
   
   request: {
-    url: {{baseUrl}}/api/User/:id
-    method: GET
-    mode: none
-    params:path: {
-      id: 
+    url: {{baseUrl}}/api/Account
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": ""
+      }
     }
   }
   
@@ -120,7 +138,6 @@ example {
         {
           "id": "",
           "name": "",
-          "email": "",
           "createdAt": ""
         }
       '''

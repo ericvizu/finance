@@ -62,6 +62,8 @@ public class Program
         builder.Services.AddScoped<ITokenService, TokenService>();
         builder.Services.AddScoped<IAccountRepository, AccountRepository>();
         builder.Services.AddScoped<IAccountService, AccountService>();
+        builder.Services.AddScoped<ISalaryRepository, SalaryRepository>();
+        builder.Services.AddScoped<ISalaryService, SalaryService>();
                 
         // Builds the application
         var app = builder.Build();

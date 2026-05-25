@@ -1,0 +1,146 @@
+meta {
+  name: Update Salary by ID
+  type: http
+  seq: 5
+  tags: [
+    Account
+  ]
+}
+
+put {
+  url: {{baseUrl}}/api/Salary/:id
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: 019e5c92-4ea6-7f0b-be58-97db5df131c1
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "Primeiro Emprego",
+    "grossAmount": 2000.00,
+    "netAmount": 1500.00,
+    "startDate": "2026-01-01",
+    "endDate": null
+  }
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/api/Account
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: text/plain
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "id": "",
+          "name": "",
+          "createdAt": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/api/Account
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": "",
+          "name": "",
+          "createdAt": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/api/Account
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: text/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": "",
+          "name": "",
+          "createdAt": ""
+        }
+      '''
+    }
+  }
+}

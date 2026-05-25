@@ -1,20 +1,26 @@
 meta {
-  name: delete /api/User/:id
+  name: Update User by ID
   type: http
-  seq: 4
+  seq: 3
   tags: [
     User
   ]
 }
 
-delete {
+put {
   url: {{baseUrl}}/api/User/:id
-  body: none
+  body: json
   auth: inherit
 }
 
 params:path {
   id: 
+}
+
+body:json {
+  {
+    "name": ""
+  }
 }
 
 example {
@@ -23,10 +29,16 @@ example {
   
   request: {
     url: {{baseUrl}}/api/User/:id
-    method: DELETE
-    mode: none
+    method: PUT
+    mode: json
     params:path: {
       id: 
+    }
+  
+    body:json: {
+      {
+        "name": ""
+      }
     }
   }
   
@@ -43,7 +55,12 @@ example {
     body: {
       type: text
       content: '''
-        false
+        {
+          "id": "",
+          "name": "",
+          "email": "",
+          "createdAt": ""
+        }
       '''
     }
   }
@@ -55,10 +72,16 @@ example {
   
   request: {
     url: {{baseUrl}}/api/User/:id
-    method: DELETE
-    mode: none
+    method: PUT
+    mode: json
     params:path: {
       id: 
+    }
+  
+    body:json: {
+      {
+        "name": ""
+      }
     }
   }
   
@@ -75,7 +98,12 @@ example {
     body: {
       type: json
       content: '''
-        false
+        {
+          "id": "",
+          "name": "",
+          "email": "",
+          "createdAt": ""
+        }
       '''
     }
   }
@@ -87,10 +115,16 @@ example {
   
   request: {
     url: {{baseUrl}}/api/User/:id
-    method: DELETE
-    mode: none
+    method: PUT
+    mode: json
     params:path: {
       id: 
+    }
+  
+    body:json: {
+      {
+        "name": ""
+      }
     }
   }
   
@@ -107,7 +141,12 @@ example {
     body: {
       type: json
       content: '''
-        false
+        {
+          "id": "",
+          "name": "",
+          "email": "",
+          "createdAt": ""
+        }
       '''
     }
   }

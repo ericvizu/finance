@@ -1,26 +1,20 @@
 meta {
-  name: put /api/Account/:id
+  name: Get Account by ID
   type: http
-  seq: 4
+  seq: 3
   tags: [
     User
   ]
 }
 
-put {
+get {
   url: {{baseUrl}}/api/Account/:id
-  body: json
+  body: none
   auth: inherit
 }
 
 params:path {
   id: {{idAccount}}
-}
-
-body:json {
-  {
-    "name": "Itaú"
-  }
 }
 
 example {

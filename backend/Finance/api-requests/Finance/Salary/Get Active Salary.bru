@@ -1,16 +1,20 @@
 meta {
-  name: post /api/Account
+  name: Get Active Salary
   type: http
-  seq: 2
+  seq: 3
   tags: [
     Account
   ]
 }
 
-post {
-  url: {{baseUrl}}/api/Account
+get {
+  url: {{baseUrl}}/api/Salary/:id
   body: json
   auth: bearer
+}
+
+params:path {
+  id: {{IdSalary}}
 }
 
 auth:bearer {
@@ -19,7 +23,7 @@ auth:bearer {
 
 body:json {
   {
-    "name": "Picpay"
+    
   }
 }
 
