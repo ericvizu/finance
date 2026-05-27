@@ -1,0 +1,141 @@
+erDiagram
+  User {
+    Guid Id PK
+    String Name ""
+    String Email ""
+    String PasswordHash ""
+    String Role ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  Account {
+    Guid Id PK
+    Guid UserId FK
+    String Name ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  CreditCard {
+    Guid AccountId PK "FK para Account"
+    Decimal CreditLimit ""
+    Int ClosingDay ""
+    Int DueDay ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  Category {
+    Guid Id PK
+    Guid UserId FK
+    Guid ParentId FK
+    String Name ""
+    String Type ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  Salary {
+    Guid Id PK
+    Guid UserId FK
+    String Name ""
+    Decimal GrossAmount ""
+    Decimal NetAmount ""
+    DateOnly StartDate ""
+    DateOnly EndDate ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  InstallmentGroup {
+    Guid Id PK
+    Guid UserId FK
+    Guid AccountId FK
+    Guid CategoryId FK
+    String Description ""
+    Decimal TotalAmount ""
+    Int TotalInstallments ""
+    DateOnly PurchaseDate ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  Expense {
+    Guid Id PK
+    Guid UserId FK
+    Guid AccountId FK
+    Guid CategoryId FK
+    Guid InvoiceId FK
+    Guid RecurringExpenseId FK
+    Guid InstallmentGroupId FK
+    Int InstallmentNumber ""
+    Decimal Amount ""
+    DateOnly DateSpent ""
+    String Description ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  Income {
+    Guid Id PK
+    Guid UserId FK
+    Guid AccountId FK
+    Guid CategoryId FK
+    Decimal Amount ""
+    DateOnly ReceivedAt ""
+    String Description ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  RecurringExpense {
+    Guid Id PK
+    Guid UserId FK
+    Guid CategoryId FK
+    Guid AccountId FK
+    String Description ""
+    Decimal DefaultAmount ""
+    Int DayOfMonth ""
+    DateOnly StartDate ""
+    DateOnly EndDate ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  Transfer {
+    Guid Id PK
+    Guid UserId FK
+    Guid FromAccountId FK
+    Guid ToAccountId FK
+    Decimal Amount ""
+    DateOnly TransferDate ""
+    String Description ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  Invoice {
+    Guid Id PK
+    Guid CreditCardId FK
+    String ReferenceMonth ""
+    DateOnly StartDate ""
+    DateOnly EndDate ""
+    Decimal TotalAmount ""
+    String Status ""
+    DateTime ClosedAt ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+
+  User ||--o{ Account : "possui"
+  User ||--o{ Category : "gerencia"
+  User ||--o{ Salary : "contrato"
+  User ||--o{ Expense : "realiza"
+  User ||--o{ Income : "recebe"
+  User ||--o{ RecurringExpense : "configura"
+  User ||--o{ Transfer : "movimenta"
+  User ||--o{ InstallmentGroup : "parcela"
+  Account ||--o| CreditCard : "estende TPT"
+  Account ||--o{ Expense : "debita"
+  Account ||--o{ Income : "credita"
+  Account ||--o{ Transfer : "origem"
+  Account ||--o{ Transfer : "destino"
+  CreditCard ||--o{ Invoice : "gera fatura"
+  Invoice ||--o{ Expense : "contem"
+  Category ||--o{ Expense : "classifica"
+  Category ||--o{ Income : "classifica"
+  Category ||--o{ Category : "subcategorias"
+  Category ||--o{ InstallmentGroup : "classifica"
+  RecurringExpense ||--o{ Expense : "gera"
+  InstallmentGroup ||--o{ Expense : "parcela"

@@ -1,0 +1,55 @@
+erDiagram
+  User {
+    Guid Id PK
+    String Name ""
+    String Email ""
+    String PasswordHash ""
+    String Role ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  Account {
+    Guid Id PK
+    Guid UserId FK
+    String Name ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  Salary {
+    Guid Id PK
+    Guid UserId FK
+    String Name ""
+    Decimal GrossAmount ""
+    Decimal NetAmount ""
+    DateOnly StartDate ""
+    DateOnly EndDate ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  Expense {
+    Guid Id PK
+    Guid UserId FK
+    Guid AccountId FK
+    Decimal Amount ""
+    DateOnly DateSpent ""
+    String Description ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+  Income {
+    Guid Id PK
+    Guid UserId FK
+    Guid AccountId FK
+    Decimal Amount ""
+    DateOnly ReceivedAt ""
+    String Description ""
+    DateTime CreatedAt ""
+    DateTime UpdatedAt ""
+  }
+
+  User ||--o{ Account : "possui"
+  User ||--o{ Salary : "contrato"
+  User ||--o{ Expense : "realiza"
+  User ||--o{ Income : "recebe"
+  Account ||--o{ Expense : "debita"
+  Account ||--o{ Income : "credita"
